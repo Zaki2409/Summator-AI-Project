@@ -44,20 +44,32 @@ def generate_actual_video(prompt_data):
                     y += 40
                 out.write(frame)
 
+        # Compose promptVariations and technicalDetails if missing
+        if "promptVariations" not in prompt_data:
+            prompt_data["promptVariations"] = [{
+                "prompt": f"{prompt_data.get('scene_description', '')} in {prompt_data.get('additional_context', '')} style",
+                "technicalDetails": {
+                    "cameraAngles": "Wide shot",
+                    "lighting": "Cinematic lighting",
+                    "movements": "Slow pan"
+                }
+            }]
+
         # Title frame
         create_text_frame("Scene Visualization", 3)
 
         # Setting frame
-        create_text_frame(prompt_data['sceneDetails']['setting'], 5)
+        create_text_frame(prompt_data.get('scene_description', 'No description provided'), 5)
 
         # Visual style frame
-        create_text_frame(prompt_data['sceneDetails']['visualStyle'], 5)
+        create_text_frame(prompt_data.get('additional_context', 'No style provided'), 5)
 
         # Technical details frame
+        tech = prompt_data["promptVariations"][0]["technicalDetails"]
         tech_details = [
-            f"Camera: {prompt_data['promptVariations'][0]['technicalDetails']['cameraAngles']}",
-            f"Lighting: {prompt_data['promptVariations'][0]['technicalDetails']['lighting']}",
-            f"Movement: {prompt_data['promptVariations'][0]['technicalDetails']['movements']}"
+            f"Camera: {tech.get('cameraAngles', 'N/A')}",
+            f"Lighting: {tech.get('lighting', 'N/A')}",
+            f"Movement: {tech.get('movements', 'N/A')}"
         ]
         create_text_frame("\n".join(tech_details), 7)
 
@@ -66,7 +78,7 @@ def generate_actual_video(prompt_data):
         return {
             "status": "success",
             "video_path": output_path,
-            "prompt_used": prompt_data['promptVariations'][0]['prompt']
+            "prompt_used": prompt_data["promptVariations"][0]["prompt"]
         }
 
     except Exception as e:
