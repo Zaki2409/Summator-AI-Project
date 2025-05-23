@@ -3,3 +3,6 @@ uvicorn
 python-dotenv
 requests
 python-multipart
+moviepy
+opencv-python== 4.5.5.62
+numpy==1.24.3
