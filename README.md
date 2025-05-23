@@ -26,18 +26,18 @@ source venv/bin/activate
 pip install -r requirements.txt
 
 ```
-### 2. Running the FastAPI Server 
-
+### 23. Running the FastAPI Server 
+```
 uvicorn main:app --reload
 ```
-### 3.Generate a Video (cURL Command)
+### 4.Generate a Video (cURL Command)
 ```
 curl -X POST http://localhost:8000/api/v1/generate-video \
   -H "Content-Type: application/json" \
   -d "{\"scene_description\":\"A lone warrior stands atop a snow-covered mountain\",\"additional_context\":\"Epic fantasy style\"}" \
   --output my_video.mp4
 ```
-### 4. For text summarization (cURL Command)
+### 5. For text summarization (cURL Command)
 ```
 curl "http://localhost:8000/api/v1/summarize?url=https://time.com/6266679/musk-ai-open-letter/"
 
