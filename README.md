@@ -37,6 +37,14 @@ curl -X POST http://localhost:8000/api/v1/generate-video \
   -d "{\"scene_description\":\"A lone warrior stands atop a snow-covered mountain\",\"additional_context\":\"Epic fantasy style\"}" \
   --output my_video.mp4
 ```
+
+```
+Invoke-WebRequest -Uri "http://localhost:8000/api/v1/generate-video" `
+  -Method POST `
+  -Headers @{"Content-Type"="application/json"} `
+  -Body '{"scene_description":"A lone warrior stands atop a snow-covered mountain","additional_context":"Epic fantasy style"}' `
+  -OutFile "my_video.mp4"
+```
 ### 5. For text summarization (cURL Command)
 ```
 curl "http://localhost:8000/api/v1/summarize?url=https://time.com/6266679/musk-ai-open-letter/"
